@@ -28,6 +28,7 @@ export class AgregarPeajePage implements OnInit {
   tipo: TypeTollVehicle;
 
   tiposVehiculos: TypeTollVehicle[] = [];
+
   constructor(private ttvService: TipoVehiculoPeajesService,
               private peajeService: PeajesService,
               private authService: AuthService,
@@ -42,16 +43,18 @@ export class AgregarPeajePage implements OnInit {
         console.log(rpt);
         this.tiposVehiculos.push(...rpt.data);
       });
+    console.log(this.tiposVehiculos);
 
   }
 
   obtenerDato(event) {
-    console.log(event.detail.value);
+    // console.log(event.detail.value);
     this.ttvService.getTipoVehiculosPeajeById(event.detail.value)
       .subscribe(rpt => {
         this.tipo = rpt.data;
         this.prefijo = this.tipo.prefix_car_plate;
         console.log(this.tipo);
+
        });
   }
 
@@ -60,6 +63,7 @@ export class AgregarPeajePage implements OnInit {
 
     this.peaje.user_id = user.id;
     this.peaje.date = this.datePipe.transform(this.peaje.date, 'yyyy-MM-dd');
+    this.peaje.car_plate = `${this.prefijo}${this.peaje.car_plate}`;
 
     await this.peajeService.savePeaje(this.peaje);
 

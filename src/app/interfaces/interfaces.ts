@@ -66,10 +66,16 @@ export interface TypeTollVehicle {
     description?: string;
     id?: number;
     prefix_car_plate?: string;
-    type?: string;
+    type_vehicle?: TypeVehicle;
     updated_at?: string;
 }
 
+export interface TypeVehicle {
+    type?: string;
+    description?: string;
+    created_at?: string;
+    updated_at?: string;
+}
 export interface RespuestaTipoVeniculoPeaje {
     success?: boolean;
     data?: TypeTollVehicle[];

@@ -50,6 +50,10 @@ export class AuthService {
     return await this.storage.get('user');
   }
 
+  async getToken() {
+    return await this.storage.get('token');
+  }
+
   async saveToken(token: string) {
 
     this.token = token;

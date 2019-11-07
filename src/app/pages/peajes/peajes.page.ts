@@ -3,6 +3,7 @@ import { PeajesService } from '../../services/peajes.service';
 import { Peaje } from 'src/app/interfaces/interfaces';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AgregarPeajePage } from '../modals/agregar-peaje/agregar-peaje.page';
+import { RespuestaPeajes } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-peajes',
@@ -40,18 +41,22 @@ export class PeajesPage implements OnInit {
   cargarData(event?, pull: boolean = false)
   {
 
-    this.peajesService.getPeajes( pull )
-      .subscribe(rpt => {
-        this.peajes.push(...rpt.data.data);
-        console.log(this.peajes);
-
-        if (event) {
-          event.target.complete();
-          if (rpt.data.data.length === 0) {
-            this.habilitado = false;
-          }
-        }
+    this.peajesService.getPeajes(pull)
+      .then(rpta => {
+        console.log(rpta);
       });
+
+      // .subscribe(rpt => {
+      //   this.peajes.push(...rpt.data.data);
+      //   console.log(this.peajes);
+
+      //   if (event) {
+      //     event.target.complete();
+      //     if (rpt.data.data.length === 0) {
+      //       this.habilitado = false;
+      //     }
+      //   }
+      // });
 
   }
 

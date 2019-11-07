@@ -18,7 +18,7 @@
       <ion-item class="p-10">
         <ion-label>Tipo de vehículo</ion-label>
         <ion-select (ionChange)="obtenerDato($event)" okText="Aceptar" [(ngModel)]="peaje.type_toll_vehicle_id" cancelText="Cancelar">
-          <ion-select-option *ngFor="let item of tiposVehiculos" value="{{ item.id}}">{{ item.type }}</ion-select-option>
+          <ion-select-option *ngFor="let item of tiposVehiculos" value="{{ item.id}}">{{ item.type_vehicle.type }}</ion-select-option>
         </ion-select>
       </ion-item>
 
