@@ -4,5 +4,6 @@
   </ion-list-header>
 
   <app-peaje *ngFor="let peaje of peajes" [peaje]="peaje" ></app-peaje>
+  <ng-template #elseBlock>No hay peajes registrados el dia de hoy.</ng-template>
 
 </ion-list>

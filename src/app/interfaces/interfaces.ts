@@ -14,7 +14,7 @@ export interface DataLogin {
 }
 export interface RespuestaPeajes {
   success?: boolean;
-  data?: DataPaginadaPeaje;
+  data?: Peaje[];
   message?: string;
 }
 export interface User {

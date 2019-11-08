@@ -1,4 +1,5 @@
 <ion-item>
   <ion-note color="primary" slot="start">{{ peaje.time }}</ion-note>
-  <ion-label>{{ peaje.type_toll_vehicle.prefix_car_plate }}{{ peaje.car_plate }}</ion-label>
+  <ion-label>{{ peaje.car_plate }}</ion-label>
+  <ion-note slot="end">Q. {{ peaje.type_toll_vehicle.cost }}</ion-note>
 </ion-item>

@@ -18,16 +18,6 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'remisiones',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../remisiones/remisiones.module').then(m => m.RemisionesPageModule)
-          }
-        ]
-      },
-      {
         path: 'documentacion',
         children: [
           {

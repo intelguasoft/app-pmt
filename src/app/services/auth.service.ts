@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RespuestaLogin, User } from '../interfaces/interfaces';
+import { BehaviorSubject } from 'rxjs';
 
 const URL = environment.url;
 @Injectable({
@@ -10,6 +11,7 @@ const URL = environment.url;
 })
 export class AuthService {
 
+  authState = new BehaviorSubject(false);
   token: string = null;
   user: User = {};
 
@@ -28,11 +30,13 @@ export class AuthService {
           if (resp.data.ok) {
             await this.saveToken(resp.data.access_token);
             await this.saveUser(resp.data.user);
+            this.authState.next(true);
             resolve(true);
           } else {
             this.token = null;
             this.user = null;
             await this.storage.clear();
+            this.authState.next(false);
             resolve(false);
           }
         });
@@ -54,11 +58,23 @@ export class AuthService {
     return await this.storage.get('token');
   }
 
+  async logout() {
+    this.token = null;
+    this.user = null;
+    this.authState.next(false);
+    await this.storage.remove('token');
+    await this.storage.remove('user');
+  }
+
   async saveToken(token: string) {
 
     this.token = token;
     await this.storage.set('token', token);
 
+  }
+
+  isAuthenticated() {
+    return this.authState.value;
   }
 
 

@@ -12,6 +12,7 @@ import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GuardService } from './services/guard.service';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { AppComponent } from './app.component';
     StatusBar,
     SplashScreen,
     DatePipe,
+    GuardService,
     DocumentViewer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

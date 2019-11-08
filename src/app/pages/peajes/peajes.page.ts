@@ -3,7 +3,6 @@ import { PeajesService } from '../../services/peajes.service';
 import { Peaje } from 'src/app/interfaces/interfaces';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AgregarPeajePage } from '../modals/agregar-peaje/agregar-peaje.page';
-import { RespuestaPeajes } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-peajes',
@@ -13,8 +12,7 @@ import { RespuestaPeajes } from '../../interfaces/interfaces';
 export class PeajesPage implements OnInit {
 
   peajes: Peaje[] = [];
-  habilitado = true;
-  inicial: boolean = false;
+  hay: boolean;
 
   constructor(private peajesService: PeajesService,
     private alertCtrl: AlertController,
@@ -23,41 +21,26 @@ export class PeajesPage implements OnInit {
   ngOnInit() {
     // console.log(this.peajes);
     this.cargarData();
-    this.refrescar(null);
-    if (this.inicial) {
-      this.peajesService.nuevoPeaje
-      .subscribe(peaje => {
-        this.peajes.unshift(peaje);
-      });
-    }
   }
 
   refrescar(event) {
-    this.cargarData(event, true);
-    this.habilitado = true;
+    this.cargarData(event);
     this.peajes = [];
   }
 
-  cargarData(event?, pull: boolean = false)
-  {
-
-    this.peajesService.getPeajes(pull)
-      .then(rpta => {
-        console.log(rpta);
-      });
-
-      // .subscribe(rpt => {
-      //   this.peajes.push(...rpt.data.data);
-      //   console.log(this.peajes);
-
-      //   if (event) {
-      //     event.target.complete();
-      //     if (rpt.data.data.length === 0) {
-      //       this.habilitado = false;
-      //     }
-      //   }
-      // });
-
+  async cargarData(event?) {
+    const peajes = await this.peajesService.getPeajes();
+    peajes.subscribe(es => {
+      if (this.peajes === []) {
+        this.hay = true;
+      } else {
+        this.peajes.push(...es.data);
+        this.hay = true;
+      }
+      if (event) {
+        event.target.complete();
+      }
+    });
   }
 
   async modalAgregarPeaje() {

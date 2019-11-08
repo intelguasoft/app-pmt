@@ -22,12 +22,12 @@
   <!-- Refresher -->
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Tire para actualizar" refreshingSpinner="circles"
-      refreshingText="Refrescando la información...">
+      refreshingText="Refrescando...">
     </ion-refresher-content>
   </ion-refresher>
 
   <!-- Peajes -->
-  <app-my-peajes [peajes]="peajes"></app-my-peajes>
+  <app-my-peajes [hay]="hay" [peajes]="peajes"></app-my-peajes>
 
   <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
@@ -35,11 +35,5 @@
       <ion-icon color="warning" name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <!-- InfiniteScroll -->
-  <ion-infinite-scroll threshold="100px" id="infinite-scroll-peajes" (ionInfinite)="cargarData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más información...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 
 </ion-content>

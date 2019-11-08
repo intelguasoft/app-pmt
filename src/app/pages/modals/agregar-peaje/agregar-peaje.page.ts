@@ -36,26 +36,27 @@ export class AgregarPeajePage implements OnInit {
               private router: Router,
               private modalCtrl: ModalController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.ttvService.getTipoVehiculosPeaje()
-      .subscribe(rpt => {
-        console.log(rpt);
-        this.tiposVehiculos.push(...rpt.data);
-      });
-    console.log(this.tiposVehiculos);
+    const mis_vehiculos = await this.ttvService.getTipoVehiculosPeaje();
+    // mis_vehiculos.then(rpt => {
+    //   console.log(rpt.data);
+    //     // this.tiposVehiculos.push(...rpt);
+    //   });
+    mis_vehiculos.subscribe(rpt => {
+      this.tiposVehiculos.push(...rpt.data);
+      console.log(this.tiposVehiculos);
+    });
 
   }
 
-  obtenerDato(event) {
+  async obtenerDato(event) {
     // console.log(event.detail.value);
-    this.ttvService.getTipoVehiculosPeajeById(event.detail.value)
-      .subscribe(rpt => {
-        this.tipo = rpt.data;
-        this.prefijo = this.tipo.prefix_car_plate;
-        console.log(this.tipo);
-
-       });
+    const id = await this.ttvService.getTipoVehiculosPeajeById(event.detail.value)
+    id.subscribe(rpt => {
+      this.tipo = rpt.data;
+      this.prefijo = this.tipo.prefix_car_plate;
+    });
   }
 
   async guardar() {

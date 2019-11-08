@@ -11,30 +11,21 @@ const URL = environment.url;
 })
 export class PeajesService {
 
-  paginaPeaje = 0;
-
   nuevoPeaje = new EventEmitter<Peaje>();
 
   constructor(private http: HttpClient,
               private auth: AuthService) { }
 
-  async getPeajes( pull: boolean = false ) {
-
-    if (pull) {
-      this.paginaPeaje = 0;
-    }
-
-    this.paginaPeaje++;
+  async getPeajes() {
 
     const token = await this.auth.getToken();
-    console.log(token);
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'bearer ' + token
       })
     };
 
-    return this.http.get<RespuestaPeajes>(`${URL}/api/v1/peaje/tolls?page=${this.paginaPeaje}`, httpOptions);
+    return this.http.get<RespuestaPeajes>(`${URL}/api/v1/peaje/tolls`, httpOptions);
 
   }
 

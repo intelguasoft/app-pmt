@@ -10,6 +10,7 @@ export class MyPeajesComponent implements OnInit {
 
   hoy: Date;
   @Input() peajes: Peaje[] = [];
+  @Input() hay: boolean;
 
   constructor() { }
 
@@ -17,7 +18,7 @@ export class MyPeajesComponent implements OnInit {
 
     this.hoy = new Date();
 
-    console.log(this.peajes);
+    // console.log(this.peajes);
   }
 
 }
